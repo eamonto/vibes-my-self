@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Un Hola Mundo moderno, elegante e interactivo construido con HTML, CSS y JavaScript.">
+  <meta name="description" content="Proyecto Hola Mundo moderno creado con la integración de Antigravity, GitHub Pages y Vibe Coding.">
   <title>Hola Mundo | Modern Web Experience</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -210,6 +210,73 @@
       transform: translateY(0);
     }
 
+    /* Stack Showcase */
+    .stack-showcase {
+      margin: 1.5rem 0 2rem;
+      padding: 1.1rem 1.25rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      backdrop-filter: blur(10px);
+    }
+
+    .stack-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      font-weight: 500;
+    }
+
+    .tech-pills {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+    }
+
+    .tech-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #e2e8f0;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9999px;
+      transition: all 0.25s ease;
+    }
+
+    .tech-pill:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+
+    .pill-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+    }
+
+    .glow-purple {
+      background-color: #a855f7;
+      box-shadow: 0 0 8px #a855f7;
+    }
+
+    .glow-cyan {
+      background-color: #06b6d4;
+      box-shadow: 0 0 8px #06b6d4;
+    }
+
+    .glow-pink {
+      background-color: #ec4899;
+      box-shadow: 0 0 8px #ec4899;
+    }
+
     /* Pie de página */
     .footer {
       margin-top: 2rem;
@@ -238,6 +305,14 @@
         Tu primer proyecto web con estilo moderno, glassmorphism y diseño responsivo.
       </p>
 
+      <div class="stack-showcase">
+        <p class="stack-label">Hecho con la integración de</p>
+        <div class="tech-pills">
+          <span class="tech-pill"><span class="pill-dot glow-purple"></span> Antigravity</span>
+          <span class="tech-pill"><span class="pill-dot glow-cyan"></span> GitHub Pages</span>
+          <span class="tech-pill"><span class="pill-dot glow-pink"></span> Vibe Coding</span>
+        </div>
+      </div>
 
       <div class="actions">
         <button id="change-btn" class="btn" type="button">
