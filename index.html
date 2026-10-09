@@ -3,363 +3,321 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Proyecto Hola Mundo moderno creado con la integración de Antigravity, GitHub Pages y Vibe Coding.">
-  <title>Hola Mundo | Modern Web Experience</title>
+  <meta name="description" content="Edison Montoya, Ph.D. — Chief Technology Officer (CTO) & AI Strategist. 14+ years experience in Applied AI, LLMs, Computer Vision, Cloud Architecture and Verifiable Systems.">
+  <meta name="author" content="Edison Montoya, Ph.D.">
+  <meta name="keywords" content="Edison Montoya, CTO, Chief Technology Officer, Artificial Intelligence, LLMs, Computer Vision, Digital Twins, Blockchain, Cloud AWS, PhD Physics">
+
+  <title>Edison Montoya, Ph.D. | Chief Technology Officer & AI Strategist</title>
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0a0c16;
-      --card-bg: rgba(255, 255, 255, 0.04);
-      --card-border: rgba(255, 255, 255, 0.1);
-      --card-hover-border: rgba(139, 92, 246, 0.4);
-      --primary: #8b5cf6;
-      --secondary: #06b6d4;
-      --accent: #ec4899;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-    }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-x: hidden;
-      position: relative;
-    }
-
-    /* Fondo dinámico con gradientes radiales */
-    .background-blobs {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      pointer-events: none;
-      overflow: hidden;
-    }
-
-    .blob {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.45;
-      animation: floatAnimation 12s ease-in-out infinite alternate;
-    }
-
-    .blob-1 {
-      width: 480px;
-      height: 480px;
-      background: radial-gradient(circle, #7c3aed 0%, transparent 70%);
-      top: -10%;
-      left: 15%;
-    }
-
-    .blob-2 {
-      width: 520px;
-      height: 520px;
-      background: radial-gradient(circle, #0284c7 0%, transparent 70%);
-      bottom: -15%;
-      right: 15%;
-      animation-delay: -6s;
-    }
-
-    .blob-3 {
-      width: 320px;
-      height: 320px;
-      background: radial-gradient(circle, #db2777 0%, transparent 70%);
-      top: 40%;
-      left: 60%;
-      animation-delay: -3s;
-    }
-
-    @keyframes floatAnimation {
-      0% {
-        transform: translate(0, 0) scale(1);
-      }
-      100% {
-        transform: translate(30px, 40px) scale(1.08);
-      }
-    }
-
-    /* Contenedor Principal */
-    .container {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      max-width: 540px;
-      padding: 1.5rem;
-    }
-
-    /* Tarjeta con Glassmorphism */
-    .card {
-      background: var(--card-bg);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border: 1px solid var(--card-border);
-      border-radius: 28px;
-      padding: 3rem 2.5rem;
-      text-align: center;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6),
-                  inset 0 1px 1px rgba(255, 255, 255, 0.15);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .card:hover {
-      border-color: var(--card-hover-border);
-      transform: translateY(-4px);
-      box-shadow: 0 30px 70px -15px rgba(124, 58, 237, 0.25),
-                  inset 0 1px 1px rgba(255, 255, 255, 0.25);
-    }
-
-    /* Badge superior */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.4rem 1rem;
-      background: rgba(139, 92, 246, 0.12);
-      border: 1px solid rgba(139, 92, 246, 0.25);
-      border-radius: 9999px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #c4b5fd;
-      margin-bottom: 1.75rem;
-      letter-spacing: 0.03em;
-    }
-
-    .badge-indicator {
-      width: 8px;
-      height: 8px;
-      background-color: #10b981;
-      border-radius: 50%;
-      box-shadow: 0 0 10px #10b981;
-      animation: pulseIndicator 2s infinite;
-    }
-
-    @keyframes pulseIndicator {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    /* Título con gradiente */
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1.1;
-      margin-bottom: 1rem;
-      background: linear-gradient(135deg, #ffffff 15%, #c084fc 60%, #38bdf8 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: -0.03em;
-      transition: transform 0.3s ease;
-    }
-
-    /* Descripción */
-    .subtitle {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
-      font-weight: 300;
-    }
-
-
-    /* Acciones */
-    .actions {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      background: linear-gradient(135deg, #7c3aed, #4f46e5);
-      color: #ffffff;
-      padding: 0.85rem 1.75rem;
-      font-size: 0.95rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 14px;
-      cursor: pointer;
-      box-shadow: 0 10px 20px -5px rgba(124, 58, 237, 0.4);
-      transition: all 0.25s ease;
-      font-family: inherit;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 26px -4px rgba(124, 58, 237, 0.55);
-      background: linear-gradient(135deg, #8b5cf6, #6366f1);
-    }
-
-    .btn:active {
-      transform: translateY(0);
-    }
-
-    /* Stack Showcase */
-    .stack-showcase {
-      margin: 1.5rem 0 2rem;
-      padding: 1.1rem 1.25rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 18px;
-      backdrop-filter: blur(10px);
-    }
-
-    .stack-label {
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-      font-weight: 500;
-    }
-
-    .tech-pills {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.6rem;
-    }
-
-    .tech-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.4rem 0.9rem;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #e2e8f0;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 9999px;
-      transition: all 0.25s ease;
-    }
-
-    .tech-pill:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.25);
-      transform: translateY(-1px);
-    }
-
-    .pill-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-    }
-
-    .glow-purple {
-      background-color: #a855f7;
-      box-shadow: 0 0 8px #a855f7;
-    }
-
-    .glow-cyan {
-      background-color: #06b6d4;
-      box-shadow: 0 0 8px #06b6d4;
-    }
-
-    .glow-pink {
-      background-color: #ec4899;
-      box-shadow: 0 0 8px #ec4899;
-    }
-
-    /* Pie de página */
-    .footer {
-      margin-top: 2rem;
-      font-size: 0.85rem;
-      color: rgba(255, 255, 255, 0.35);
-    }
-  </style>
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="background-blobs">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+
+  <!-- Ambient Glowing Background -->
+  <div class="ambient-background" aria-hidden="true">
+    <div class="ambient-blob ambient-blob-1"></div>
+    <div class="ambient-blob ambient-blob-2"></div>
+    <div class="ambient-blob ambient-blob-3"></div>
+  </div>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <!-- Toast Notification -->
+  <div id="toast-notice" class="toast-notice" role="alert" aria-live="polite">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M20 6 9 17l-5-5"/>
+    </svg>
+    <span id="toast-text">¡Correo copiado al portapapeles!</span>
   </div>
 
-  <main class="container">
-    <div class="card">
-      <div class="badge">
-        <span class="badge-indicator"></span>
-        <span>HTML5 & CSS Moderno</span>
-      </div>
+  <div class="app-container">
 
-      <h1 id="greeting-title">¡Hola, Mundo!</h1>
+    <!-- Sticky Executive Navigation Bar -->
+    <header class="site-header">
+      <nav class="navbar" aria-label="Main Navigation">
+        <a href="#hero" class="nav-brand">
+          <div class="brand-avatar">EM</div>
+          <div class="brand-info">
+            <span class="brand-name">Edison Montoya</span>
+            <span class="brand-title" id="nav-brand-title">CTO & Líder de IA</span>
+          </div>
+        </a>
 
-      <p class="subtitle" id="greeting-desc">
-        Tu primer proyecto web con estilo moderno, glassmorphism y diseño responsivo.
-      </p>
+        <div class="nav-controls">
+          <!-- View Mode Selector -->
+          <div class="view-mode-toggle" role="group" aria-label="View Mode">
+            <button id="mode-summary" class="view-btn active" type="button" title="Vista Resumen Ejecutivo">
+              <span id="mode-summary-text">⚡ Resumen Ejecutivo</span>
+            </button>
+            <button id="mode-full" class="view-btn" type="button" title="Vista Hoja de Vida Completa">
+              <span id="mode-full-text">📄 CV Detallado</span>
+            </button>
+          </div>
 
-      <div class="stack-showcase">
-        <p class="stack-label">Hecho con la integración de</p>
-        <div class="tech-pills">
-          <span class="tech-pill"><span class="pill-dot glow-purple"></span> Antigravity</span>
-          <span class="tech-pill"><span class="pill-dot glow-cyan"></span> GitHub Pages</span>
-          <span class="tech-pill"><span class="pill-dot glow-pink"></span> Vibe Coding</span>
+          <!-- Language Selector -->
+          <div class="lang-toggle" role="group" aria-label="Language Selector">
+            <button id="lang-es" class="lang-btn active" type="button" title="Español">ES</button>
+            <button id="lang-en" class="lang-btn" type="button" title="English">EN</button>
+          </div>
+
+          <!-- Print / PDF Action -->
+          <button id="print-cv-btn" class="btn-icon-nav" type="button" title="Imprimir / Exportar a PDF">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 9V2h12v7"/>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+              <path d="M6 14h12v8H6z"/>
+            </svg>
+            <span id="print-cv-text">Imprimir</span>
+          </button>
         </div>
+      </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main>
+
+      <!-- HERO / EXECUTIVE PROFILE INTRO -->
+      <section id="hero" class="hero-section">
+        <div class="hero-badge-row">
+          <div class="status-badge">
+            <span class="status-dot"></span>
+            <span id="hero-status-text">Disponible para Roles Ejecutivos & Asesoría</span>
+          </div>
+          <div class="role-tag-badge" id="hero-role-badge">
+            PhD en Física • Ex-CEO & CTO
+          </div>
+        </div>
+
+        <h1 class="hero-title" id="hero-name">Edison Montoya</h1>
+        <h2 class="hero-subtitle" id="hero-title">Chief Technology Officer (CTO) & AI Technical Strategist</h2>
+
+        <p class="hero-lead" id="hero-lead">
+          Líder tecnológico y PhD con más de 14 años de trayectoria en arquitectura de soluciones basadas en datos, computación científica de alto rendimiento y dirección tecnológica. Con la evolución del ecosistema hacia la Inteligencia Artificial moderna, he liderado el diseño y puesta en producción de sistemas de IA aplicada (LLMs para soporte técnico, Visión por Computador, Gemelos Digitales), arquitecturas cloud en AWS y soluciones de trazabilidad en blockchain.
+        </p>
+
+        <!-- Tech and Competencies Badges -->
+        <div class="hero-pills" id="hero-pills"></div>
+
+        <!-- Hero Actions -->
+        <div class="hero-actions">
+          <a href="mailto:eamonto@gmail.com" class="btn-primary" id="hero-contact-btn">
+            Contactar por Email
+          </a>
+          <a href="https://www.linkedin.com/in/eamonto" target="_blank" rel="noopener noreferrer" class="btn-secondary" id="hero-linkedin-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
+            Perfil de LinkedIn
+          </a>
+          <button type="button" class="btn-outline" id="hero-view-cv-btn">
+            Ver CV Completo
+          </button>
+        </div>
+      </section>
+
+      <!-- METRICS BAR AT A GLANCE -->
+      <section class="metrics-grid" id="metrics-container" aria-label="Key Metrics"></section>
+
+      <!-- INTERACTIVE CHARTS: "DONDE TENGO MÁS EXPERIENCIA" -->
+      <section id="charts-section" class="charts-section" aria-label="Experience Charts">
+        <div class="section-header">
+          <div class="section-eyebrow" id="charts-eyebrow">Métricas de Experiencia</div>
+          <h2 class="section-title" id="charts-title">¿En qué áreas tengo más experiencia?</h2>
+          <p class="section-desc" id="charts-desc">
+            Distribución visual de más de una década liderando iniciativas de innovación tecnológica y productos de misión crítica.
+          </p>
+        </div>
+
+        <div class="charts-grid">
+          <!-- Chart 1: Technical & Leadership Domains -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3 class="chart-card-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2">
+                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                </svg>
+                <span id="chart-1-title">Dominio Tecnológico & Liderazgo</span>
+              </h3>
+              <p class="chart-card-subtitle" id="chart-1-subtitle">Enfoque de dedicación en proyectos y soluciones de software</p>
+            </div>
+
+            <div class="chart-body">
+              <div class="chart-visual-wrapper" id="chart-1-wrapper"></div>
+              <div class="chart-legend" id="chart-1-legend"></div>
+            </div>
+
+            <div class="chart-active-detail" id="chart-1-detail"></div>
+          </div>
+
+          <!-- Chart 2: Business & Industry Sectors -->
+          <div class="chart-card">
+            <div class="chart-card-header">
+              <h3 class="chart-card-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"/>
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+                  <path d="M2 12h20"/>
+                </svg>
+                <span id="chart-2-title">Impacto por Sector de Negocio</span>
+              </h3>
+              <p class="chart-card-subtitle" id="chart-2-subtitle">Distribución de proyectos desplegados y clientes atendidos</p>
+            </div>
+
+            <div class="chart-body">
+              <div class="chart-visual-wrapper" id="chart-2-wrapper"></div>
+              <div class="chart-legend" id="chart-2-legend"></div>
+            </div>
+
+            <div class="chart-active-detail" id="chart-2-detail"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTO & AI ENTERPRISE PILLARS -->
+      <section class="pillars-section" aria-label="Core Competencies">
+        <div class="section-header">
+          <div class="section-eyebrow" id="pillars-eyebrow">Capacidades Estratégicas para Empresas</div>
+          <h2 class="section-title" id="pillars-title">¿Por qué Edison Montoya como CTO o Líder de Tecnología e IA?</h2>
+          <p class="section-desc" id="pillars-desc">
+            Rigor científico, visión ejecutiva de producto y capacidad práctica para llevar modelos de IA del laboratorio a producción masiva.
+          </p>
+        </div>
+
+        <div class="pillars-grid" id="pillars-container"></div>
+      </section>
+
+      <!-- PROFESSIONAL EXPERIENCE TIMELINE -->
+      <section id="experience-section" class="experience-section" aria-label="Professional Experience">
+        <div class="section-header">
+          <div class="section-eyebrow" id="exp-eyebrow">Trayectoria Profesional</div>
+          <h2 class="section-title" id="exp-title">Experiencia en Liderazgo y Tecnología</h2>
+          <p class="section-desc" id="exp-desc">
+            Historial de roles de alto impacto en dirección tecnológica, startups, aceleradoras globales y formulación de políticas internacionales.
+          </p>
+        </div>
+
+        <!-- Filter Tabs -->
+        <div class="experience-filter-tabs" id="experience-filters"></div>
+
+        <!-- Timeline Cards List -->
+        <div class="timeline" id="experience-timeline"></div>
+      </section>
+
+      <!-- DETAILED CV ONLY SECTIONS (SHOWN IN FULL CV MODE OR SPREAD) -->
+
+      <!-- RESEARCH & POSTDOCS (DETAILED VIEW) -->
+      <section class="detailed-cv-only sub-card" style="margin-bottom: 2.5rem;" aria-label="Scientific Research">
+        <div class="section-header" style="margin-bottom: 1.5rem;">
+          <div class="section-eyebrow" id="res-eyebrow">Investigación Avanzada & Postdoctorados</div>
+          <h2 class="section-title" id="res-title">Rigor Científico y Cómputo de Alto Rendimiento</h2>
+          <p class="section-desc" id="res-desc">
+            3 Postdoctorados y trayectoria en instituciones de prestigio internacional resolviendo problemas físicos y computacionales de alta escala.
+          </p>
+        </div>
+        <div class="edu-list" id="postdocs-container"></div>
+      </section>
+
+      <!-- GRANTS & INFRASTRUCTURE FUNDING -->
+      <section class="sub-card" style="margin-bottom: 2.5rem;" aria-label="Technology Grants">
+        <div class="section-header" style="margin-bottom: 1.2rem;">
+          <div class="section-eyebrow" id="grants-eyebrow">Financiamiento de Infraestructura</div>
+          <h2 class="section-title" id="grants-title">Subvenciones y Grants de Tecnología Ganados</h2>
+          <p class="section-desc" id="grants-desc">
+            Más de $310,000 USD asegurados en competencia directa con gigantes tecnológicos globales para respaldar proyectos de IA y Cloud.
+          </p>
+        </div>
+        <div class="grant-list" id="grants-container"></div>
+      </section>
+
+      <!-- EDUCATION & HONORS -->
+      <section class="two-col-grid" style="margin-bottom: 2.5rem;" aria-label="Education and Honors">
+        <div class="sub-card">
+          <div class="section-header" style="margin-bottom: 1rem;">
+            <div class="section-eyebrow" id="edu-eyebrow">Formación de Posgrado</div>
+            <h2 class="section-title" id="edu-title">Educación & Especializaciones</h2>
+          </div>
+          <div class="edu-list" id="edu-container"></div>
+        </div>
+
+        <div class="sub-card detailed-cv-only">
+          <div class="section-header" style="margin-bottom: 1rem;">
+            <div class="section-eyebrow" id="awards-eyebrow">Reconocimientos</div>
+            <h2 class="section-title" id="awards-title">Premios, Distinciones & Becas</h2>
+          </div>
+          <div class="pub-list" id="awards-container"></div>
+        </div>
+      </section>
+
+      <!-- PUBLICATIONS & POLICY (DETAILED VIEW) -->
+      <section class="detailed-cv-only sub-card" style="margin-bottom: 2.5rem;" aria-label="Publications and Policy">
+        <div class="section-header" style="margin-bottom: 1.2rem;">
+          <div class="section-eyebrow" id="pub-eyebrow">Producción Intelectual</div>
+          <h2 class="section-title" id="pub-title">Publicaciones Científicas & Políticas Públicas</h2>
+          <p class="section-desc" id="pub-desc">
+            Artículos en revistas científicas indexadas de alto impacto y documentos estratégicos de política pública multilateral.
+          </p>
+        </div>
+        <div class="pub-list" id="publications-container"></div>
+      </section>
+
+      <!-- ADVISORY & COMMUNITY (DETAILED VIEW) -->
+      <section class="detailed-cv-only sub-card" style="margin-bottom: 3.5rem;" aria-label="Advisory and Service">
+        <div class="section-header" style="margin-bottom: 1.2rem;">
+          <div class="section-eyebrow" id="adv-eyebrow">Liderazgo en la Comunidad</div>
+          <h2 class="section-title" id="adv-title">Juntas Asesoras & Charlas Magistrales</h2>
+          <p class="section-desc" id="adv-desc">
+            Participación activa en consejos estratégicos de startups, mentorías de negocios y conferencista internacional.
+          </p>
+        </div>
+        <div class="grant-list" id="advisory-container"></div>
+      </section>
+
+      <!-- CTA & CONTACT BANNER -->
+      <section id="contact" class="cta-banner" aria-label="Contact Section">
+        <h2 class="cta-title" id="cta-title">¿Buscando un CTO o Líder de Tecnología e Inteligencia Artificial?</h2>
+        <p class="cta-desc" id="cta-desc">
+          Disponible para conversar sobre retos de arquitectura, adopción de IA empresarial, escalamiento de producto y posiciones de liderazgo tecnológico.
+        </p>
+        <div class="cta-links">
+          <a href="mailto:eamonto@gmail.com" class="btn-primary" id="cta-email-btn">
+            Enviar Correo a eamonto@gmail.com
+          </a>
+          <button type="button" class="btn-secondary" id="copy-email-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+            </svg>
+            Copiar Correo
+          </button>
+          <a href="https://www.linkedin.com/in/eamonto" target="_blank" rel="noopener noreferrer" class="btn-outline" id="cta-linkedin-btn">
+            Conectar en LinkedIn
+          </a>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+      <div class="footer-links">
+        <a href="mailto:eamonto@gmail.com" class="footer-link">eamonto@gmail.com</a>
+        <span>•</span>
+        <a href="https://www.linkedin.com/in/eamonto" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn</a>
+        <span>•</span>
+        <a href="https://scholar.google.com/citations?user=Av6U2NYAAAAJ" target="_blank" rel="noopener noreferrer" class="footer-link">Google Scholar</a>
       </div>
+      <p id="footer-text">Edison Montoya, Ph.D. • Chief Technology Officer & AI Strategist • Medellín, Colombia</p>
+      <p id="footer-rights" style="margin-top: 0.3rem; opacity: 0.6;">Sitio web profesional optimizado con Antigravity & Vibe Coding.</p>
+    </footer>
 
-      <div class="actions">
-        <button id="change-btn" class="btn" type="button">
-          <span>Cambiar idioma</span>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m5 8 6 6"/>
-            <path d="m4 14 6-6 2-3"/>
-            <path d="M2 5h12"/>
-            <path d="M7 2h1"/>
-            <path d="m22 22-5-10-5 10"/>
-            <path d="M14 18h6"/>
-          </svg>
-        </button>
-      </div>
+  </div>
 
-      <p class="footer">index.html • Listo para visualizar en cualquier navegador</p>
-    </div>
-  </main>
-
-  <script>
-    const greetings = [
-      { text: "¡Hola, Mundo!", desc: "Tu primer proyecto web con estilo moderno, glassmorphism y diseño responsivo." },
-      { text: "Hello, World!", desc: "Your first web project with a modern touch and fluid animations." },
-      { text: "Bonjour, le Monde!", desc: "Votre premier projet web au design soigné et contemporain." },
-      { text: "Ciao, Mondo!", desc: "Il tuo primo progetto web moderno ed elegante." },
-      { text: "Olá, Mundo!", desc: "Seu primeiro projeto web moderno com estilo e interatividade." }
-    ];
-
-    let currentIndex = 0;
-    const greetingTitle = document.getElementById("greeting-title");
-    const greetingDesc = document.getElementById("greeting-desc");
-    const changeBtn = document.getElementById("change-btn");
-
-    changeBtn.addEventListener("click", () => {
-      currentIndex = (currentIndex + 1) % greetings.length;
-      const current = greetings[currentIndex];
-
-      greetingTitle.style.transform = "scale(0.95)";
-      greetingTitle.style.opacity = "0.4";
-
-      setTimeout(() => {
-        greetingTitle.textContent = current.text;
-        greetingDesc.textContent = current.desc;
-        greetingTitle.style.transform = "scale(1)";
-        greetingTitle.style.opacity = "1";
-      }, 150);
-    });
-  </script>
+  <!-- Application Logic -->
+  <script src="app.js"></script>
 </body>
 </html>
