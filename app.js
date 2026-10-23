@@ -970,7 +970,7 @@ const cvData = {
       emailPlaceholder: "your.email@example.com",
       messageLabel: "Message",
       messagePlaceholder: "Write your message here...",
-      submitBtn: "Enviar",
+      submitBtn: "Send",
       sendingBtn: "Sending...",
       successMsg: "Message sent successfully! I will get back to you shortly.",
       errorMsg: "An error occurred while sending the message. Please try again or write directly to eamonto@gmail.com."
@@ -1280,32 +1280,51 @@ function renderAll() {
     </div>
   `).join('');
 
-  // 13. CTA Section
-  document.getElementById('cta-title').textContent = data.cta.title;
-  document.getElementById('cta-desc').textContent = data.cta.desc;
-  document.getElementById('cta-email-btn').textContent = data.cta.btnEmail;
-  document.getElementById('cta-linkedin-btn').textContent = data.cta.btnLinkedIn;
-  const copyEmailBtn = document.getElementById('copy-email-btn');
-  if (copyEmailBtn) {
-    const copySvg = copyEmailBtn.querySelector('svg');
-    copyEmailBtn.innerHTML = '';
-    if (copySvg) copyEmailBtn.appendChild(copySvg);
-    copyEmailBtn.appendChild(document.createTextNode(' ' + data.cta.btnCopy));
+  // 13. CTA Section (optional if removed from DOM)
+  const ctaTitle = document.getElementById('cta-title');
+  if (ctaTitle && data.cta) {
+    ctaTitle.textContent = data.cta.title;
+    const ctaDesc = document.getElementById('cta-desc');
+    if (ctaDesc) ctaDesc.textContent = data.cta.desc;
+    const ctaEmail = document.getElementById('cta-email-btn');
+    if (ctaEmail) ctaEmail.textContent = data.cta.btnEmail;
+    const ctaLinkedin = document.getElementById('cta-linkedin-btn');
+    if (ctaLinkedin) ctaLinkedin.textContent = data.cta.btnLinkedIn;
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    if (copyEmailBtn) {
+      const copySvg = copyEmailBtn.querySelector('svg');
+      copyEmailBtn.innerHTML = '';
+      if (copySvg) copyEmailBtn.appendChild(copySvg);
+      copyEmailBtn.appendChild(document.createTextNode(' ' + data.cta.btnCopy));
+    }
   }
 
   // 13.5 Contact Form Section
   const contactEyebrow = document.getElementById('contact-eyebrow');
   if (contactEyebrow && data.contactForm) {
     contactEyebrow.textContent = data.contactForm.eyebrow;
-    document.getElementById('contact-form-title').textContent = data.contactForm.title;
-    document.getElementById('contact-form-desc').textContent = data.contactForm.desc;
-    document.getElementById('label-nombre').textContent = data.contactForm.nameLabel;
-    document.getElementById('label-correo').textContent = data.contactForm.emailLabel;
-    document.getElementById('label-mensaje').textContent = data.contactForm.messageLabel;
-    document.getElementById('btn-submit-text').textContent = data.contactForm.submitBtn;
-    document.getElementById('nombre').placeholder = data.contactForm.namePlaceholder;
-    document.getElementById('correo').placeholder = data.contactForm.emailPlaceholder;
-    document.getElementById('mensaje').placeholder = data.contactForm.messagePlaceholder;
+    const formTitle = document.getElementById('contact-form-title');
+    if (formTitle) formTitle.textContent = data.contactForm.title;
+    const formDesc = document.getElementById('contact-form-desc');
+    if (formDesc) formDesc.textContent = data.contactForm.desc;
+    const labelNombre = document.getElementById('label-nombre');
+    if (labelNombre) labelNombre.textContent = data.contactForm.nameLabel;
+    const labelCorreo = document.getElementById('label-correo');
+    if (labelCorreo) labelCorreo.textContent = data.contactForm.emailLabel;
+    const labelMensaje = document.getElementById('label-mensaje');
+    if (labelMensaje) labelMensaje.textContent = data.contactForm.messageLabel;
+    const btnSubmitText = document.getElementById('btn-submit-text');
+    if (btnSubmitText) btnSubmitText.textContent = data.contactForm.submitBtn;
+    const inputNombre = document.getElementById('nombre');
+    if (inputNombre) inputNombre.placeholder = data.contactForm.namePlaceholder;
+    const inputCorreo = document.getElementById('correo');
+    if (inputCorreo) inputCorreo.placeholder = data.contactForm.emailPlaceholder;
+    const inputMensaje = document.getElementById('mensaje');
+    if (inputMensaje) inputMensaje.placeholder = data.contactForm.messagePlaceholder;
+    const contactSection = document.getElementById('contact-form-section');
+    if (contactSection) {
+      contactSection.setAttribute('aria-label', currentLang === 'es' ? 'Sección de Contacto Directo' : 'Direct Contact Section');
+    }
   }
 
   // 14. Footer
