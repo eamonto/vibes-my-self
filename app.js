@@ -1003,28 +1003,62 @@ if (document.readyState === 'loading') {
 }
 
 // --- LANGUAGE CONTROLS ---
+function updateLanguageUI() {
+  const btnEs = document.getElementById('lang-es');
+  const btnEn = document.getElementById('lang-en');
+
+  if (btnEs) {
+    btnEs.classList.toggle('active', currentLang === 'es');
+    btnEs.setAttribute('aria-pressed', currentLang === 'es' ? 'true' : 'false');
+  }
+  if (btnEn) {
+    btnEn.classList.toggle('active', currentLang === 'en');
+    btnEn.setAttribute('aria-pressed', currentLang === 'en' ? 'true' : 'false');
+  }
+  document.documentElement.lang = currentLang;
+}
+
 function initLanguage() {
   const btnEs = document.getElementById('lang-es');
   const btnEn = document.getElementById('lang-en');
 
-  btnEs.addEventListener('click', () => switchLanguage('es'));
-  btnEn.addEventListener('click', () => switchLanguage('en'));
+  updateLanguageUI();
+
+  if (btnEs) {
+    btnEs.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchLanguage('es');
+    });
+  }
+  if (btnEn) {
+    btnEn.addEventListener('click', (e) => {
+      e.preventDefault();
+      switchLanguage('en');
+    });
+  }
 }
 
 function switchLanguage(lang) {
-  if (currentLang === lang) return;
+  if (lang !== 'es' && lang !== 'en') return;
+
+  const btnEs = document.getElementById('lang-es');
+  const btnEn = document.getElementById('lang-en');
+  const uiAlreadyMatches = btnEs && btnEn &&
+    ((lang === 'es' && btnEs.classList.contains('active') && !btnEn.classList.contains('active')) ||
+     (lang === 'en' && btnEn.classList.contains('active') && !btnEs.classList.contains('active')));
+
+  // Si el estado interno y la interfaz visual ya coinciden exactamente, no es necesario re-renderizar
+  if (currentLang === lang && uiAlreadyMatches) return;
+
   currentLang = lang;
-  localStorage.setItem('cv_lang', lang);
+  try {
+    localStorage.setItem('cv_lang', lang);
+  } catch (err) {
+    console.warn('Unable to persist language preference:', err);
+  }
 
-  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
-  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-
-  // Smooth re-render
-  document.body.style.opacity = '0.9';
-  setTimeout(() => {
-    renderAll();
-    document.body.style.opacity = '1';
-  }, 100);
+  updateLanguageUI();
+  renderAll();
 }
 
 // --- VIEW MODE CONTROLS ---
@@ -1331,7 +1365,8 @@ function renderAll() {
   document.getElementById('footer-text').textContent = data.footer.text;
   document.getElementById('footer-rights').textContent = data.footer.rights;
 
-  // Apply current mode visibility
+  // Apply current mode visibility and language UI
+  updateLanguageUI();
   switchMode(currentMode);
 }
 
