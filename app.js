@@ -1127,21 +1127,6 @@ function initCopyActions() {
     });
   }
 
-  // Print button
-  const printBtn = document.getElementById('print-cv-btn');
-  if (printBtn) {
-    printBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      // Ensure all sections are visible for printing
-      const detailedOnly = document.querySelectorAll('.detailed-cv-only');
-      detailedOnly.forEach(sec => sec.style.display = 'block');
-      window.print();
-      // Restore previous state if needed
-      if (currentMode === 'summary') {
-        detailedOnly.forEach(sec => sec.style.display = 'none');
-      }
-    });
-  }
 }
 
 // --- MAIN RENDER DISPATCHER ---
@@ -1152,7 +1137,6 @@ function renderAll() {
   document.getElementById('nav-brand-title').textContent = data.nav.brandTitle;
   document.getElementById('mode-summary-text').textContent = data.nav.modeSummary;
   document.getElementById('mode-full-text').textContent = data.nav.modeFull;
-  document.getElementById('print-cv-text').textContent = data.nav.printCV;
 
   // 2. Hero Section
   document.getElementById('hero-status-text').textContent = data.hero.statusBadge;
