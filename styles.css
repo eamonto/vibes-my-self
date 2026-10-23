@@ -1472,7 +1472,7 @@ body {
 
 .form-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   margin-top: 0.5rem;
 }
