@@ -3,6 +3,29 @@
  * High-performance bilingual interactive application
  */
 
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.1.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/13.1.0/firebase-firestore.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "YOUR_FIREBASE_API_KEY",
+  authDomain: "landing-eamonto.firebaseapp.com",
+  projectId: "landing-eamonto",
+  storageBucket: "landing-eamonto.firebasestorage.app",
+  messagingSenderId: "912071308581",
+  appId: "1:912071308581:web:7f711e5dea6d806c2296cc"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 // --- DATA DICTIONARY (SPANISH & ENGLISH) ---
 const cvData = {
   es: {
@@ -458,6 +481,21 @@ const cvData = {
       btnLinkedIn: "Conectar en LinkedIn",
       btnCopy: "Copiar Correo",
       copiedNotice: "¡Correo copiado al portapapeles! (eamonto@gmail.com)"
+    },
+    contactForm: {
+      eyebrow: "Contacto Directo",
+      title: "Envíame un Mensaje",
+      desc: "¿Tienes un proyecto, propuesta o consulta? Completa el formulario y te responderé a la brevedad.",
+      nameLabel: "Nombre",
+      namePlaceholder: "Tu nombre",
+      emailLabel: "Correo",
+      emailPlaceholder: "tu.correo@ejemplo.com",
+      messageLabel: "Mensaje",
+      messagePlaceholder: "Escribe tu mensaje aquí...",
+      submitBtn: "Enviar",
+      sendingBtn: "Enviando...",
+      successMsg: "¡Mensaje enviado con éxito! Te responderé a la brevedad.",
+      errorMsg: "Ocurrió un error al enviar el mensaje. Por favor intenta de nuevo o escríbeme a eamonto@gmail.com."
     },
     footer: {
       text: "Edison Montoya, Ph.D. • Chief Technology Officer & AI Strategist • Medellín, Colombia",
@@ -922,6 +960,21 @@ const cvData = {
       btnCopy: "Copy Email Address",
       copiedNotice: "Email copied to clipboard! (eamonto@gmail.com)"
     },
+    contactForm: {
+      eyebrow: "Direct Contact",
+      title: "Send Me a Message",
+      desc: "Have a project, opportunity, or inquiry? Fill out the form and I will get back to you promptly.",
+      nameLabel: "Name",
+      namePlaceholder: "Your name",
+      emailLabel: "Email",
+      emailPlaceholder: "your.email@example.com",
+      messageLabel: "Message",
+      messagePlaceholder: "Write your message here...",
+      submitBtn: "Enviar",
+      sendingBtn: "Sending...",
+      successMsg: "Message sent successfully! I will get back to you shortly.",
+      errorMsg: "An error occurred while sending the message. Please try again or write directly to eamonto@gmail.com."
+    },
     footer: {
       text: "Edison Montoya, Ph.D. • Chief Technology Officer & AI Strategist • Medellín, Colombia",
       rights: "Executive portfolio engineered with Antigravity & Vibe Coding."
@@ -935,12 +988,19 @@ let currentMode = 'summary'; // 'summary' or 'full'
 let activeFilter = 'all';
 
 // --- INITIALIZATION ---
-document.addEventListener('DOMContentLoaded', () => {
+function initializeAppLogic() {
   initLanguage();
   initViewModes();
   initCopyActions();
+  initContactForm();
   renderAll();
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeAppLogic);
+} else {
+  initializeAppLogic();
+}
 
 // --- LANGUAGE CONTROLS ---
 function initLanguage() {
@@ -1225,7 +1285,28 @@ function renderAll() {
   document.getElementById('cta-desc').textContent = data.cta.desc;
   document.getElementById('cta-email-btn').textContent = data.cta.btnEmail;
   document.getElementById('cta-linkedin-btn').textContent = data.cta.btnLinkedIn;
-  document.getElementById('copy-email-btn').textContent = data.cta.btnCopy;
+  const copyEmailBtn = document.getElementById('copy-email-btn');
+  if (copyEmailBtn) {
+    const copySvg = copyEmailBtn.querySelector('svg');
+    copyEmailBtn.innerHTML = '';
+    if (copySvg) copyEmailBtn.appendChild(copySvg);
+    copyEmailBtn.appendChild(document.createTextNode(' ' + data.cta.btnCopy));
+  }
+
+  // 13.5 Contact Form Section
+  const contactEyebrow = document.getElementById('contact-eyebrow');
+  if (contactEyebrow && data.contactForm) {
+    contactEyebrow.textContent = data.contactForm.eyebrow;
+    document.getElementById('contact-form-title').textContent = data.contactForm.title;
+    document.getElementById('contact-form-desc').textContent = data.contactForm.desc;
+    document.getElementById('label-nombre').textContent = data.contactForm.nameLabel;
+    document.getElementById('label-correo').textContent = data.contactForm.emailLabel;
+    document.getElementById('label-mensaje').textContent = data.contactForm.messageLabel;
+    document.getElementById('btn-submit-text').textContent = data.contactForm.submitBtn;
+    document.getElementById('nombre').placeholder = data.contactForm.namePlaceholder;
+    document.getElementById('correo').placeholder = data.contactForm.emailPlaceholder;
+    document.getElementById('mensaje').placeholder = data.contactForm.messagePlaceholder;
+  }
 
   // 14. Footer
   document.getElementById('footer-text').textContent = data.footer.text;
@@ -1416,3 +1497,116 @@ function getPillarIconSvg(name) {
       return `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`;
   }
 }
+
+// --- CONTACT FORM FIREBASE FIRESTORE LOGIC ---
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  const submitBtn = document.getElementById('contact-submit-btn');
+  const submitText = document.getElementById('btn-submit-text');
+  const statusContainer = document.getElementById('form-status');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const nombreInput = document.getElementById('nombre');
+    const correoInput = document.getElementById('correo');
+    const mensajeInput = document.getElementById('mensaje');
+
+    const nombre = nombreInput ? nombreInput.value.trim() : '';
+    const correo = correoInput ? correoInput.value.trim() : '';
+    const mensaje = mensajeInput ? mensajeInput.value.trim() : '';
+
+    const isEs = currentLang === 'es';
+
+    // Validación básica de campos requeridos
+    if (!nombre || !correo || !mensaje) {
+      showFormStatus(
+        isEs
+          ? 'Por favor completa todos los campos (nombre, correo y mensaje).'
+          : 'Please complete all fields (name, email, and message).',
+        'error'
+      );
+      return;
+    }
+
+    // Validación de formato de correo
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(correo)) {
+      showFormStatus(
+        isEs
+          ? 'Por favor ingresa un correo electrónico válido.'
+          : 'Please enter a valid email address.',
+        'error'
+      );
+      return;
+    }
+
+    // Estado visual de envío en progreso
+    if (submitBtn) submitBtn.disabled = true;
+    if (submitText) submitText.textContent = isEs ? 'Enviando...' : 'Sending...';
+    hideFormStatus();
+
+    try {
+      // Guardar en la colección "mensajes" con exactamente: nombre, correo, mensaje y fecha (con serverTimestamp)
+      await addDoc(collection(db, 'mensajes'), {
+        nombre: nombre,
+        correo: correo,
+        mensaje: mensaje,
+        fecha: serverTimestamp()
+      });
+
+      // Feedback de éxito
+      showFormStatus(
+        isEs
+          ? '¡Mensaje enviado con éxito! Te responderé a la brevedad.'
+          : 'Message sent successfully! I will get back to you shortly.',
+        'success'
+      );
+
+      form.reset();
+
+      // Notificación toast global
+      const toast = document.getElementById('toast-notice');
+      const toastText = document.getElementById('toast-text');
+      if (toast && toastText) {
+        toastText.textContent = isEs ? '¡Mensaje enviado con éxito!' : 'Message sent successfully!';
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 3500);
+      }
+    } catch (error) {
+      console.error('Error al guardar mensaje en Firestore:', error);
+      showFormStatus(
+        isEs
+          ? 'Ocurrió un error al enviar el mensaje. Por favor intenta de nuevo o escríbeme directamente a eamonto@gmail.com.'
+          : 'An error occurred while sending the message. Please try again or write directly to eamonto@gmail.com.',
+        'error'
+      );
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      const currentData = cvData[currentLang] || cvData.es;
+      if (submitText) submitText.textContent = currentData.contactForm?.submitBtn || 'Enviar';
+    }
+  });
+
+  function showFormStatus(msg, type) {
+    if (!statusContainer) return;
+    statusContainer.className = `form-status ${type}`;
+    statusContainer.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        ${type === 'success'
+        ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>'
+        : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'}
+      </svg>
+      <span>${msg}</span>
+    `;
+    statusContainer.style.display = 'flex';
+  }
+
+  function hideFormStatus() {
+    if (!statusContainer) return;
+    statusContainer.style.display = 'none';
+  }
+}
+

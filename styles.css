@@ -1358,6 +1358,189 @@ body {
   gap: 1rem;
 }
 
+/* =====================================================================
+   CONTACT FORM & FIREBASE INTEGRATION STYLES
+   ===================================================================== */
+.contact-section {
+  margin-bottom: 3.5rem;
+}
+
+.contact-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  padding: 3rem 2.5rem;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  transition: border-color var(--transition-smooth);
+}
+
+.contact-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--royal-blue-vivid), var(--habano), transparent);
+}
+
+.contact-form {
+  max-width: 640px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: left;
+}
+
+.form-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-icon {
+  position: absolute;
+  left: 1.1rem;
+  color: var(--text-dim);
+  pointer-events: none;
+  transition: color var(--transition-fast);
+}
+
+.form-input {
+  width: 100%;
+  background: rgba(10, 16, 29, 0.75);
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1rem 0.95rem 2.9rem;
+  color: var(--white-pure);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.form-textarea {
+  width: 100%;
+  background: rgba(10, 16, 29, 0.75);
+  border: 1px solid rgba(226, 232, 240, 0.12);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.1rem;
+  color: var(--white-pure);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: all var(--transition-fast);
+  outline: none;
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.6;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-dim);
+  opacity: 0.75;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--royal-blue-vivid);
+  background: rgba(15, 23, 42, 0.95);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.22), 0 0 20px rgba(37, 99, 235, 0.18);
+}
+
+.input-container:focus-within .input-icon {
+  color: var(--royal-blue-light);
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.btn-submit {
+  min-width: 150px;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0.95rem 2rem;
+  font-size: 1rem;
+}
+
+.btn-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.form-status {
+  display: none;
+  border-radius: var(--radius-md);
+  padding: 0.95rem 1.3rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  align-items: center;
+  gap: 0.75rem;
+  animation: fadeInStatus 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInStatus {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-status.success {
+  display: flex;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.45);
+  color: #a7f3d0;
+}
+
+.form-status.error {
+  display: flex;
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.45);
+  color: #fca5a5;
+}
+
+@media (max-width: 640px) {
+  .contact-card {
+    padding: 2rem 1.25rem;
+  }
+  .form-actions {
+    justify-content: stretch;
+  }
+  .btn-submit {
+    width: 100%;
+  }
+}
+
+
 /* Toast Notification for Clipboard Copy */
 .toast-notice {
   position: fixed;
